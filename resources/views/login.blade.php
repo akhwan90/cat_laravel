@@ -31,9 +31,9 @@
                             <label for="password">Password</label>
                         </div>
     
-                        <button class="w-100 btn btn-lg btn-danger mt-3" type="submit">Register</button>
+                        <button class="w-100 btn btn-lg btn-danger mt-3" type="submit">Login</button>
                     </form>
-                    <small class="d-block mt-3">Have an account? <a class="text-danger" href="/login"> Login Here</a></small>
+                    <small class="d-block mt-3">Belum punya akun? <a class="text-danger" href="/register"> Daftar Disini</a></small>
                 </div>
             </div>
         </div>

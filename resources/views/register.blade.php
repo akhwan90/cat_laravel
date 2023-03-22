@@ -38,7 +38,7 @@
     
                         <button class="w-100 btn btn-lg btn-danger mt-3" type="submit">Register</button>
                     </form>
-                    <small class="d-block mt-3">Have an account? <a class="text-danger" href="/login"> Login Here</a></small>
+                    <small class="d-block mt-3">Sudah punya akun? <a class="text-danger" href="/login"> Login disini</a></small>
                 </div>
             </div>
         </div>
