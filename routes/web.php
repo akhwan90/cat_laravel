@@ -20,11 +20,15 @@ Route::get('/', function () {
 
 Route::get('/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'registerStore']);
-Route::get('/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProccess']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/resetPassword', [AuthController::class, 'resetPassword']);
     Route::post('/resetPassword', [AuthController::class, 'resetPasswordProccess']);
+    
+    Route::get('/dashboard', [AuthController::class, 'dashboard']);
+    Route::get('/themesChange', [AuthController::class, 'themesChange']);
+
 });

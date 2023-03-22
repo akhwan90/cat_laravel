@@ -93,4 +93,17 @@ class AuthController extends Controller
 
         return back()->with('notif', '<div class="alert alert-success">Password berhasil diubah</div>');
     }
+
+    public function dashboard()
+    {
+        $data['menu_aktif'] = "dashboard";
+        return view('page.dashboard', $data);
+    }
+
+    public function themesChange()
+    {
+        session('themes', request('to'));
+        
+        return redirect('dashboard');
+    }
 }
