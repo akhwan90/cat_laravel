@@ -103,11 +103,16 @@ data-template="vertical-menu-template-free"
 
             
                     <ul class="menu-inner py-1">
-                        <!-- Dashboard -->
                         <li class="menu-item @if($menu_aktif=="dashboard") active @endif">
-                            <a href="{{ URL::to('/') }}" class="menu-link">
+                            <a href="{{ URL::to('/dashboard') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                                 <div>Dashboard</div>
+                            </a>
+                        </li>
+                        <li class="menu-item @if($menu_aktif=="admin.user") active @endif">
+                            <a href="{{ URL::to('/dashboard') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-user"></i>
+                                <div>User</div>
                             </a>
                         </li>
                         
@@ -190,10 +195,14 @@ data-template="vertical-menu-template-free"
                     <!-- Content wrapper -->
                     <div class="content-wrapper">
 
-                        <div style="min-height: 70vh">
-                            @yield('content')
+                        <div class="container-fluid flex-grow-1 container-p-y">
+                            <div class="row">
+                                <div class="col-md-12 col-12 mb-md-0 mb-4">
+                                    @yield('content')
+                                </div>
+                            </div>
                         </div>
-
+      
                         <!-- Footer -->
                         <footer class="content-footer footer bg-footer-theme">
                             <div class="container-fluid d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">

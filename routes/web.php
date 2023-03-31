@@ -32,3 +32,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/themesChange', [AuthController::class, 'themesChange']);
 
 });
+
+
+require __DIR__ . '/admin.php';
