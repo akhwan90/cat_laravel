@@ -22,7 +22,7 @@ data-template="vertical-menu-template-free"
     <meta name="msapplication-navbutton-color" content="#fff">
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
-    <link rel="manifest" href="{{ url('/') }}/manifest.json">
+    {{-- <link rel="manifest" href="{{ url('/') }}/manifest.json"> --}}
 
     <title>{{ env('APP_NAME') }} - @yield('title') </title>
     
@@ -109,12 +109,42 @@ data-template="vertical-menu-template-free"
                                 <div>Dashboard</div>
                             </a>
                         </li>
+
+                        @if (Auth::user()->level == 1)
                         <li class="menu-item @if($menu_aktif=="admin.user") active @endif">
-                            <a href="{{ URL::to('/dashboard') }}" class="menu-link">
+                            <a href="{{ URL::to('/admin/user') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-user"></i>
-                                <div>User</div>
+                                <div>Pengguna Aplikasi</div>
                             </a>
                         </li>
+                        <li class="menu-item @if($menu_aktif=="admin.ujian") active @endif">
+                            <a href="{{ URL::to('/admin/ujian') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-file"></i>
+                                <div>Ujian</div>
+                            </a>
+                        </li>
+                        <li class="menu-item @if($menu_aktif=="admin.peserta") active @endif">
+                            <a href="{{ URL::to('/admin/peserta') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+                                <div>Peserta Ujian</div>
+                            </a>
+                        </li>
+                        <li class="menu-item @if($menu_aktif=="admin.soal") active @endif">
+                            <a href="{{ URL::to('/admin/soal') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-question-mark"></i>
+                                <div>Soal</div>
+                            </a>
+                        </li>
+                        @endif
+                        
+                        @if (Auth::user()->level == 3)
+                        <li class="menu-item @if($menu_aktif=="peserta.ujian") active @endif">
+                            <a href="{{ URL::to('/peserta/ujian') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-file"></i>
+                                <div>Ujian</div>
+                            </a>
+                        </li>
+                        @endif
                         
                     </ul>
                 </aside>
