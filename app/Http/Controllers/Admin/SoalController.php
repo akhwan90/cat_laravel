@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mapel;
 use App\Models\Peserta;
 use App\Models\Soal;
 use App\Models\SoalOpsi;
@@ -42,10 +43,11 @@ class SoalController extends Controller
     public function add()
     {
         $data['menu_aktif'] = "admin.soal";
-
+        $data['pMapel'] = Mapel::pluck('name', 'id')->toArray();
+        
         return view('page.admin.soal.add', $data);
     }
-
+    
     public function edit($idSoal)
     {
         $getDataSoal = Soal::whereId($idSoal)->first();
@@ -54,6 +56,7 @@ class SoalController extends Controller
         ->orderBy('id', 'asc')
         ->get();
         $data['dataSoalOpsi'] = $getDataSoalOpsi;
+        $data['pMapel'] = Mapel::pluck('name', 'id')->toArray();
         
         $data['menu_aktif'] = "admin.soal";
 
@@ -65,10 +68,12 @@ class SoalController extends Controller
         $validatedData = request()->validate([
             'soal' => 'required|min:3',
             'kunci' => 'required',
+            'mapel_id' => 'required',
             'soal_gambar'=>'image|max:512|mimes:jpeg,jpg,png'
         ]);
 
         $pDataSoal = [
+            'mapel_id' => $validatedData['mapel_id'],
             'soal' => $validatedData['soal'],
             'created_at' => Carbon::now()
         ];
@@ -146,6 +151,7 @@ class SoalController extends Controller
             'id' => 'required',
             'soal' => 'required|min:3',
             'kunci' => 'required',
+            'mapel_id' => 'required',
             'soal_gambar'=>'image|max:512|mimes:jpeg,jpg,png'
         ]);
 
@@ -159,6 +165,7 @@ class SoalController extends Controller
         // dd($jawabanGambar);
 
         $pDataSoal = [
+            'mapel_id' => $validatedData['mapel_id'],
             'soal' => $validatedData['soal'],
             'updated_at' => Carbon::now()
         ];

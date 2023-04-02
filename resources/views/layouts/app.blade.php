@@ -135,6 +135,12 @@ data-template="vertical-menu-template-free"
                                 <div>Soal</div>
                             </a>
                         </li>
+                        <li class="menu-item @if($menu_aktif=="admin.mapel") active @endif">
+                            <a href="{{ URL::to('/admin/mapel') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-bookmark"></i>
+                                <div>Mata Pelajaran</div>
+                            </a>
+                        </li>
                         @endif
                         
                         @if (Auth::user()->level == 3)

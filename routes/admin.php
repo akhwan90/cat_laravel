@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SoalController as AdminSoalController;
 use App\Http\Controllers\Admin\UjianController as AdminUjianController;
 use App\Http\Controllers\Admin\UjianPesertaController as AdminUjianPesertaController;
 use App\Http\Controllers\Admin\UjianSoalController as AdminUjianSoalController;
+use App\Http\Controllers\Admin\MapelController as AdminMapelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,16 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
         
         Route::get('/detil/{id}', 'detil')->name('detil');
     });
+
+    Route::controller(AdminMapelController::class)->prefix('mapel')->as('admin.mapel.')->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{idMapel}', 'edit')->name('edit');
+        Route::post('/insert', 'insert')->name('insert');
+        Route::post('/update', 'update')->name('update');
+        Route::get('/remove/{idMapel}', 'remove')->name('remove');
+    });
+
 
     Route::controller(AdminUjianPesertaController::class)->prefix('ujian/peserta')->as('admin.ujian.peserta.')->group(function () {
         Route::get('{id}', 'index')->name('index');
