@@ -22,7 +22,10 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <label for="">Gambar Soal</label>
+                            @if (is_file(public_path().'/upload/soal/'.$dataSoal->file_media))
+                                <img src="{{ url('upload/soal/'.$dataSoal->file_media) }}" style="width: 100%">
+                            @endif
+                            <label for="">Ganti Gambar Soal</label>
                             <input type="file" name="soal_gambar" class="form-control" id="">
                         </div>
                     </div>
@@ -48,7 +51,10 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <label for="">Gambar Jawaban</label>
+                            @if (is_file(public_path().'/upload/opsi/'.$opsi->file_media))
+                                <img src="{{ url('upload/opsi/'.$opsi->file_media) }}" style="width: 100%">
+                            @endif
+                            <label for="">Ganti Gambar Jawaban</label>
                             <input type="file" name="jawaban_gambar[{{ $opsi->id }}]" class="form-control" id="">
                         </div>
                     </div>

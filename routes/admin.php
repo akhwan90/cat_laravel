@@ -45,6 +45,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function() {
         Route::post('/insert', 'insert')->name('insert');
         Route::post('/update', 'update')->name('update');
         Route::get('/remove/{idSoal}', 'remove')->name('remove');
+        Route::get('/getGambarSoal/{idSoal}', 'getGambarSoal')->name('getGambarSoal');
     });
 
     Route::controller(AdminUjianController::class)->prefix('ujian')->as('admin.ujian.')->group(function () {

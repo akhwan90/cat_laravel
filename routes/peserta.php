@@ -20,6 +20,8 @@ Route::prefix('peserta')->middleware(['auth'])->group(function() {
         Route::get('viewSoal/{idUjianPeserta}', 'viewSoal')->name('viewSoal');
         Route::post('saveSatu', 'saveSatu')->name('saveSatu');
         Route::get('selesai/{idUjianPeserta}', 'selesai')->name('selesai');
+        Route::get('viewGambarSoal/{idSoal}', 'viewGambarSoal')->name('viewGambarSoal');
+        Route::get('viewGambarOpsi/{idOpsi}', 'viewGambarOpsi')->name('viewGambarOpsi');
     });
 
 

@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Peserta;
 
 use App\Http\Controllers\Controller;
 use App\Models\Peserta;
+use App\Models\Soal;
 use App\Models\SoalOpsi;
 use App\Models\Ujian;
 use App\Models\UjianPeserta;
@@ -133,18 +134,44 @@ class UjianController extends Controller
             foreach ($getSoal as $soal) {
                 // $idx = $soal->id;
                 // $tampungSoal[$idx] = $soal;
-
-                $getOpsiJawaban = SoalOpsi::where('soal_id', $soal->idSoal)
-                ->orderBy('id')
-                ->get();
+                $soal = $soal->toArray();
 
                 // Log::info("opsi".$getOpsiJawaban);
+                // cek file soal 
+                $cekFileSoal = null;
+                if (is_file(public_path().'/upload/soal/'.$soal['file_media'])) {
+                    $cekFileSoal = url('peserta/ujian/viewGambarSoal/' . $soal['idSoal']);
+                }
+                $soal['file_media'] = $cekFileSoal;
 
-                $soal['opsi'] = $getOpsiJawaban;
+                $getOpsiJawaban = SoalOpsi::where('soal_id', $soal['idSoal'])
+                    ->orderBy('id')
+                    ->get();
+
+                $tampungOpsi = [];
+                if ($getOpsiJawaban->first() != null) {
+                    foreach ($getOpsiJawaban as $opsiJawaban) {
+                        $opsiJawaban = $opsiJawaban->toArray();
+                        $cekFileOpsi = null;
+                        if (is_file(public_path() . '/upload/opsi/' . $opsiJawaban['file_media'])) {
+                            $cekFileOpsi =
+                            url('peserta/ujian/viewGambarOpsi/' . $opsiJawaban['id']);
+                        }
+                        $opsiJawaban['file_media'] = $cekFileOpsi;
+
+                        $tampungOpsi[] = $opsiJawaban;
+                    }
+                }
+
+
+                $soal['opsi'] = $tampungOpsi;
 
                 $tampungSoal[] = $soal;
             }
         }
+
+        // dd($tampungSoal);
+        
         $data['soals'] = $tampungSoal;
         $data['idUjianPeserta'] = $idUjianPeserta;
         // dd($getSoal);
@@ -198,5 +225,31 @@ class UjianController extends Controller
         ]);
 
         return redirect()->route('peserta.ujian.index');
+    }
+
+    public function viewGambarSoal($idSoal)
+    {
+        $getGambar = Soal::whereId($idSoal)
+        ->select('file_media')
+        ->first();
+
+        if (is_file(public_path() . '/upload/soal/' . $getGambar->file_media)) {
+            return response()->file(public_path().'/upload/soal/'.$getGambar->file_media);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function viewGambarOpsi($idOpsi)
+    {
+        $getGambar = SoalOpsi::whereId($idOpsi)
+            ->select('file_media')
+            ->first();
+
+        if (is_file(public_path() . '/upload/opsi/' . $getGambar->file_media)) {
+            return response()->file(public_path() . '/upload/opsi/' . $getGambar->file_media);
+        } else {
+            abort(404);
+        }
     }
 }

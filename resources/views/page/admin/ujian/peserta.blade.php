@@ -13,7 +13,8 @@
                 <thead>
                     <tr>
                         <th width="10%">No</th>
-                        <th width="80%">Nama</th>
+                        <th width="60%">Nama</th>
+                        <th width="20%">Status</th>
                         <th width="10%">Hapus</th>
                     </tr>
                 </thead>
@@ -27,7 +28,19 @@
                                 <td>{{ $no }}</td>
                                 <td>{{ $item->nama_peserta }}</td>
                                 <td>
-                                    <a href="{{ route('admin.ujian.peserta.remove', [$data->id, $item->id]) }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin?')">Hapus</a>
+                                    @if ($item->status == 0)
+                                        <span class="text-info">Belum dikerjakan</span>
+                                    @elseif ($item->status == 1) 
+                                        <span class="text-warning">Sedang dikerjakan</span>
+                                    @elseif ($item->status == 2)
+                                        <span class="text-success">Selesai dikerjakan</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->status == 1)
+
+                                        <a href="{{ route('admin.ujian.peserta.remove', [$data->id, $item->id]) }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin?')">Hapus</a>
+                                    @endif
                                 </td>
                             </tr>
 

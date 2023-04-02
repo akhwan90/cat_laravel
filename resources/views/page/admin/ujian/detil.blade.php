@@ -13,7 +13,15 @@
         </p>
         <p>
             <label for="">Status Ujian</label><br/>
-            {{ $data->status }}
+            @if ($data->status == 1)
+                <span class="text-success">Aktif</span>
+            @else 
+                <span class="text-muted">Non Aktif</span>
+            @endif
+        </p>
+        <p>
+            <label for="">Waktu Pengerjaan</label><br/>
+            {{ $data->waktu }} menit
         </p>
     </div>
 </div>

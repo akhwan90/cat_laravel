@@ -64,6 +64,7 @@ class UjianController extends Controller
         $pdata = [
             'nama_ujian' => $validatedData['nama_ujian'],
             'waktu' => $validatedData['waktu'],
+            'created_at'=>Carbon::now()
         ];
 
         Ujian::insert($pdata);
@@ -83,6 +84,7 @@ class UjianController extends Controller
             'nama_ujian'=>$validatedData['nama_ujian'],
             'status'=>request('status'),
             'waktu'=>$validatedData['waktu'],
+            'updated_at'=>Carbon::now()
         ];
 
         Ujian::whereId($validatedData['id'])

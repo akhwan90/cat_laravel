@@ -171,7 +171,7 @@ data-template="vertical-menu-template-free"
             }
 
             // consol
-            htmlNavigator += '<a href="#" '+classSudahDijawab+' onclick="return buka('+(noSoal)+');" style="width: 40px; border: solid 1px #eee; margin-left: 5px; margin-bottom: 4px; text-align: center; border-radius: 5px; padding: 2px 5px;">'+(noSoal+1)+'</a>';
+            htmlNavigator += '<a href="#" '+classSudahDijawab+' onclick="return bukakan('+(noSoal)+');" style="width: 40px; border: solid 1px #eee; margin-left: 5px; margin-bottom: 4px; text-align: center; border-radius: 5px; padding: 2px 5px;">'+(noSoal+1)+'</a>';
 
             noSoal++;
         });
@@ -184,8 +184,14 @@ data-template="vertical-menu-template-free"
 
     function buka(noSoal) {
         let isiSoal = soals[noSoal].soal;
+
+        let gambarSoal = '';
+        if (soals[noSoal].file_media != null) {
+            gambarSoal += '<p><img src="'+soals[noSoal].file_media+'" width="100%"></p>';
+        }
+        
         $("#headerSoal").html("Soal nomor "+(noSoal+1));
-        $("#contentSoal").html(isiSoal);
+        $("#contentSoal").html(gambarSoal +isiSoal);
         let idSoal = soals[noSoal].idSoal;
         let jawabanTerpilih = soals[noSoal].jawaban_peserta;
         
@@ -196,11 +202,23 @@ data-template="vertical-menu-template-free"
                 if (ops.id == jawabanTerpilih) {
                     checked = 'checked';
                 }
+                let gambarOpsi = '';
+                if (ops.file_media != null) {
+                    gambarOpsi += '<img src="'+ops.file_media+'">';
+                }
+
                 opsiSoal += 
                 '<div class="list-group-item">'+
-                '<input type="radio" name="opsi_'+noSoal+'" value="'+ops.id+'" id="opsi_'+ops.id+'" '+checked+' onchange="return saveJawaban('+noSoal+', '+idUjianPeserta+', '+idSoal+', '+ops.id+');">'+
-                '&nbsp;&nbsp;'+
-                '<label for="opsi_'+ops.id+'">'+ops.opsi+'</label>'+
+                    '<div class="d-flex align-item-start">'+
+                        '<div style="margin-right: 10px">'+
+                            '<input type="radio" name="opsi_'+noSoal+'" value="'+ops.id+'" id="opsi_'+ops.id+'" '+checked+' onchange="return saveJawaban('+noSoal+', '+idUjianPeserta+', '+idSoal+', '+ops.id+');">'+
+                        '</div>'+
+                        '<label for="opsi_'+ops.id+'">'+
+                            ops.opsi+
+                            '<br/>'+
+                            gambarOpsi+
+                        '</label>'+
+                    '</div>'+
                 '</div>'
                 ;
             });
@@ -241,6 +259,11 @@ data-template="vertical-menu-template-free"
         }
     }
 
+    function bukakan(noSoal) {
+        soalAktif = noSoal;
+        buka(noSoal);
+    }
+
     function saveJawaban(noSoal, idUjianPeserta, idSoal, idOpsi) {
         // let formData = new FormData();
         // formData.append(noSoal, noSoal);
@@ -257,6 +280,7 @@ data-template="vertical-menu-template-free"
             },
             success: function(res) {
                 next();
+                showNavigator();
             },
             error: function(xhr) {
                 console.log(xhr);
