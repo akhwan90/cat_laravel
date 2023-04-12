@@ -13,4 +13,4 @@ Anda bisa berkontribusi agar aplikasi ini lebih baik. Fork repo ini dan pull req
 
 ## License
 
-Lisensi aplikasi ini menginduk dari lisensi The Laravel framework yang mana merupakan aplikasi kode sumber terbuka, dibawah [MIT license](https://opensource.org/licenses/MIT).
+Lisensi aplikasi ini mengikuti dari lisensi The Laravel framework yang mana merupakan aplikasi kode sumber terbuka, dibawah [MIT license](https://opensource.org/licenses/MIT).
