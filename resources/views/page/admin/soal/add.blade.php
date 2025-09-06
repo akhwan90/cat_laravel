@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            @for ($i = 0; $i < 2; $i++)
+            @for ($i = 0; $i < env("JUMLAH_OPSI"); $i++)
             <div class="card card-body mt-2">
                 <div class="row">
                     <div class="col-lg-1">
